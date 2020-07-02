@@ -1,19 +1,13 @@
-import time
+#sudo pip install gpiozero
+
+mport time
 import sys
 from datetime import date
 import urllib.request
-import RPI.GPIO as GPIO
+from gpiozero import RGBLED
 
-redPin = 11
-greenPin = 15
-bluePin = 13
-
-def blink(pin):
-    GPIO.setmode(GPIO.BOARD)
-    GPIO.setup(pin, GPIO.OUT)
-    GPIO.output(pin, GPIO.HIGH)
-
-
+ 
+led = RGBLED(red=11, green=15, blue=13)
 url = "https://lichess.org/api/user/RogerWest"
 response = urllib.request.urlopen(url)
 encoding = response.info().get_content_charset('utf8')
@@ -49,11 +43,11 @@ print('TMR RATING GOAL: ', tmr_goal)
 while True:
     if cr != rating_d or cr > rating_d: #if rating is meet turn light red on rpi
         print("all good fam...chill vibes")
-        blink(greenPin)
+        led.green()
     if cr < rating_d:
         time.sleep(10)
         print("BEN FINEGOLD IS COMING FOR YOU!")
-       blink(redPin)
+        led.red()
     elif:
         print("Error encountered!")
-        blink(bluePin)
+        led.blue()
