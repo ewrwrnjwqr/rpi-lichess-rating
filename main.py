@@ -1,19 +1,18 @@
 import time
+import sys
 from datetime import date
 import urllib.request
-import jsonimport RPi.GPIO as GPIO
+import RPI.GPIO as GPIO
 
-# https://www.hackster.io/Tisko/rgb-led-change-color-through-python-7fa1c7 for schematic
+redPin = 11
+greenPin = 15
+bluePin = 13
 
-red_pin = 18
-green_pin = 23
-blue_pin = 24
-GPIO.setup(red_pin, GPIO.OUT)
-GPIO.setup(green_pin, GPIO.OUT)
-GPIO.setup(blue_pin, GPIO.OUT)
-GPIO.output(red_pin, False)
-GPIO.output(green_pin, False)
-GPIO.output(blue_pin, False)
+def blink(pin):
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(pin, GPIO.OUT)
+    GPIO.output(pin, GPIO.HIGH)
+
 
 url = "https://lichess.org/api/user/RogerWest"
 response = urllib.request.urlopen(url)
@@ -50,9 +49,11 @@ print('TMR RATING GOAL: ', tmr_goal)
 while True:
     if cr != rating_d or cr > rating_d: #if rating is meet turn light red on rpi
         print("all good fam...chill vibes")
-        GPIO.output(green_pin, True)
-    else:
+        blink(greenPin)
+    if cr < rating_d:
         time.sleep(10)
         print("BEN FINEGOLD IS COMING FOR YOU!")
-        GPIO.output(red_pin, True)
-        
+       blink(redPin)
+    elif:
+        print("Error encountered!")
+        blink(bluePin)
