@@ -7,7 +7,7 @@ import urllib.request
 from gpiozero import RGBLED
  
 led = RGBLED(red=11, green=15, blue=13)
-url = "https://lichess.org/api/user/RogerWest"
+url = "https://lichess.org/api/user/INSERTPROFILEHERE"
 response = urllib.request.urlopen(url)
 encoding = response.info().get_content_charset('utf8')
 data = json.loads(response.read().decode(encoding))
