@@ -1,11 +1,10 @@
 #sudo pip install gpiozero
 
-mport time
+import time
 import sys
 from datetime import date
 import urllib.request
 from gpiozero import RGBLED
-
  
 led = RGBLED(red=11, green=15, blue=13)
 url = "https://lichess.org/api/user/RogerWest"
